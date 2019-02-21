@@ -1,0 +1,13 @@
+.pseudo-input {
+  padding: 12px;
+  border: 1px solid black;
+}
+
+.is-active {
+  border-color: blue;
+  border-width: 5px;
+}
+
+.is-not-valid {
+  border-color: red;
+}
