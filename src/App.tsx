@@ -1,15 +1,20 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './App.css';
 import { Settings } from './components/Settings';
+import { Timer } from './components/Timer';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <Settings />
-      </div>
-    );
-  }
-}
-
-export default App;
+export default () => {
+  return (
+    <div className="App">
+      {/* <Settings /> */}
+      <Timer
+        date={
+          'Mon Apr 01 2019 02:00:00 GMT+0300 (Восточная Европа, летнее время)'
+        }
+        interval={1000}
+        key="idx"
+        autoStart
+      />
+    </div>
+  );
+};
