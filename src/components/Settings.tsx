@@ -5,7 +5,9 @@ interface ISettingsState {
   name: string;
   password: string;
   ip: string;
-  validation: { [P in keyof Partial<ISettingsState>]: boolean };
+  validation: {
+    [P in keyof Pick<ISettingsState, 'password' | 'ip' | 'name'>]: boolean
+  };
   [key: string]: any;
 }
 
