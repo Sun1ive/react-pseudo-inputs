@@ -9,14 +9,17 @@ interface InputContainerProps {
   name: string;
   onChangeCallback: (key: string, name: string) => void;
   onDeleteCallback: (name: string) => void;
-  validation: RegExp;
   validateKeys: RegExp;
+  isValid: boolean;
 }
 
 export class InputContainer extends Component<InputContainerProps> {
+  public static defaultProps = {
+    isValid: true
+  };
+
   state = {
-    isActive: false,
-    isValid: false
+    isActive: false
   };
 
   private _onClick = () => {
@@ -43,25 +46,17 @@ export class InputContainer extends Component<InputContainerProps> {
     KeyboardService.instance.setActiveInput(this);
   }
 
-  private readonly _DHCPVALIDATOR = () => {
-    this.setState({
-      isValid: this.props.validation.test(this.props.value)
-    });
-  };
-
   private readonly _onChangeHandler = (e: KeyboardEvent) => {
     const { key } = e;
 
     switch (key) {
       case 'Backspace':
         this.props.onDeleteCallback(this.props.name);
-        this._DHCPVALIDATOR();
         break;
 
       default:
         if (this.props.validateKeys.test(key)) {
           this.props.onChangeCallback(key, this.props.name);
-          this._DHCPVALIDATOR();
         }
 
         break;
@@ -72,7 +67,7 @@ export class InputContainer extends Component<InputContainerProps> {
     const classes = classnames({
       'pseudo-input': true,
       'is-active': this.state.isActive,
-      'is-not-valid': !this.state.isValid
+      'is-not-valid': !this.props.isValid
     });
 
     return (
