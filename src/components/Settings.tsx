@@ -5,11 +5,12 @@ interface ISettingsState {
   name: string;
   password: string;
   ip: string;
+  validation: { [P in keyof Partial<ISettingsState>]: boolean };
   [key: string]: any;
 }
 
 interface IValidatePatterns {
-  [key: string]: any;
+  [key: string]: RegExp;
 }
 
 export class Settings extends Component<{}, ISettingsState> {
@@ -21,7 +22,12 @@ export class Settings extends Component<{}, ISettingsState> {
   state: ISettingsState = {
     name: 'foo',
     password: '12345',
-    ip: '10.10.10.10'
+    ip: '10.10.10.10',
+    validation: {
+      ip: true,
+      name: true,
+      password: true
+    }
   };
 
   public validator = (name: string) => {
